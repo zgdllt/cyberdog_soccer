@@ -1,0 +1,3 @@
+[console_scripts]
+stand = learning.stand:main
+
