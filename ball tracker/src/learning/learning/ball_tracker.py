@@ -15,7 +15,8 @@ class distance(Node):
         self.get_logger().info(f"Distance to obstacle: {self.distance:.2f} meters")
     def get_distance(self):
         return self.distance
-def main():
+def main(args=None):
+    rclpy.init(args=args)
     move_node = move.basic_move('basic_move')
     camera_node = camera.CameraSubscriber('camera_subscriber')
     distance_node = distance('distance')
@@ -31,7 +32,7 @@ def main():
         # else:
         #     print("No image received yet.")
         hsv= cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-        thresh= cv2.inRange(hsv, (30, 70, 0), (70, 255, 255))
+        thresh= cv2.inRange(hsv, (30, 50, 0), (85, 255, 255))
         _, contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         max_contour = max(contours, key=cv2.contourArea)
         (x,y),r= cv2.minEnclosingCircle(max_contour)
@@ -48,5 +49,4 @@ def main():
     distance_node.destroy_node()
     rclpy.shutdown()
 if __name__ == '__main__':
-    rclpy.init()
     main()

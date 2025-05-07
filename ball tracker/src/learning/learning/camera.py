@@ -4,6 +4,7 @@ from sensor_msgs.msg import Image
 import cv2
 import threading
 from cv_bridge import CvBridge
+
 class CameraSubscriber(Node):
     def __init__(self, name):
         super().__init__(name)
