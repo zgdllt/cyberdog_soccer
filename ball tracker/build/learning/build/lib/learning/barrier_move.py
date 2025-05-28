@@ -72,8 +72,8 @@ class DogAvoidanceController(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = DogAvoidanceController("dog_avoidance_controller")
-    #for i in range(10):
-    rclpy.spin(node)
+    for i in range(10):
+        rclpy.spin_once(node)
     node.destroy_node()
     rclpy.shutdown()
 

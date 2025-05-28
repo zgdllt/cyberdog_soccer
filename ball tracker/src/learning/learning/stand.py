@@ -11,7 +11,7 @@ class basic_cmd(Node):
         self.req = MotionResultCmd.Request()
 
     def send_request(self):
-        self.req.motion_id = 111
+        self.req.motion_id = 101
         self.future = self.cli.call_async(self.req)
 def main(args=None):
     rclpy.init(args=args)

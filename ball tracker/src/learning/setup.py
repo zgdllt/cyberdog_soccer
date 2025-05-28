@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'stand = learning.stand:main'
+            'stand = learning.stand:main',
             'move = learning.move:main',
             'camera = learning.camera:main',
             'ball_tracker = learning.ball_tracker:main',

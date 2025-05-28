@@ -5,6 +5,7 @@ from geometry_msgs.msg import AccelStamped
 from geometry_msgs.msg import TwistStamped
 import math
 import move
+import asyncio
 from geometry_msgs.msg import Point
 class LocationSubscriber(Node):
     def __init__(self, name,Rigid):
@@ -48,55 +49,49 @@ def navigation(selfpos,targetpos,selfangle):
     new_vector.x = vector.x * myvector1.x + vector.y * myvector1.y
     new_vector.y = vector.x * myvector2.x + vector.y * myvector2.y
     return new_vector
-def main(args=None):
+async def main(args=None):
     rclpy.init(args=args)
     move_node = move.basic_move('basic_move')
     # Spin ROS node in a separate thread
     # 等待直到收到有效的位置消息
-    other_location_subscriber = LocationSubscriber('other_location_subscriber','go91')
+    opponent_location_subscriber1 = LocationSubscriber('other_location_subscriber','dogh')
+    opponent_location_subscriber2 = LocationSubscriber('other_location_subscriber2','dogh')
     self_location_subscriber = LocationSubscriber('self_location_subscriber','betago2')
+    teammate_location_subscriber = LocationSubscriber('teammate_location_subscriber','betago1')
     location_subscriber = LocationSubscriber('location_subscriber','greenball')
-    goal_subscriber1= LocationSubscriber('goal_subscriber1','goal1')
-    goal_subscriber2= LocationSubscriber('goal_subscriber2','goal2')
-    def refresh():
+    async def refresh():
     # Refresh the node to get the latest data
         rclpy.spin_once(self_location_subscriber)
         rclpy.spin_once(location_subscriber)
-        rclpy.spin_once(goal_subscriber1)
-        rclpy.spin_once(goal_subscriber2)
-        rclpy.spin_once(other_location_subscriber)
+        rclpy.spin_once(opponent_location_subscriber1)
+        rclpy.spin_once(opponent_location_subscriber2)
+        rclpy.spin_once(teammate_location_subscriber)
         pose = location_subscriber.get_pose()
         mypose = self_location_subscriber.get_pose()
-        goal1pose = goal_subscriber1.get_pose()
-        goal2pose = goal_subscriber2.get_pose()
-        otpose = other_location_subscriber.get_pose()
-        return pose, mypose, goal1pose, goal2pose, otpose
+        tmpose = teammate_location_subscriber.get_pose()
+        otpose1 = opponent_location_subscriber1.get_pose()
+        otpose2 = opponent_location_subscriber2.get_pose()
+        return pose, mypose,tmpose, otpose1, otpose2
     ballpose = None
     mypose = None
-    goal1pose = None
-    goal2pose = None
-    otpose = None
+    tmpos = None
+    otpose1 = None
+    otpose2 = None
     print("等待接收位置消息...")
-    while ballpose is None or mypose is None or otpose is None:
-        ballpose, mypose, goal1pose, goal2pose,otpose = refresh()
+    while ballpose is None or mypose is None or tmpos is None or otpose1 is None or otpose2 is None:
+        ballpose, mypose, tmpos, otpose1, otpose2 =await refresh()
     # Get the latest pose
     ballpos=ballpose.pose.position
     mypos = mypose.pose.position
-    otpos = otpose.pose.position
+    tmpos = tmpos.pose.position
+    otpos1 = otpose1.pose.position
+    otpos2 = otpose2.pose.position
     print("Received pose message")
     # Calculate the midpoint between goal1 and goal2
     goalpos = Point()
-    if goal1pose is not None and goal2pose is not None:
-        goalpos.x = (goal1pose.pose.position.x + goal2pose.pose.position.x) / 2
-        goalpos.y = (goal1pose.pose.position.y + goal2pose.pose.position.y) / 2
-        goalpos.z = (goal1pose.pose.position.z + goal2pose.pose.position.z) / 2
-    else:
-        # Default to one of the goals if the other is not available
-        valid_pose = goal1pose if goal1pose is not None else goal2pose
-        if valid_pose is not None:
-            goalpos = valid_pose.pose.position
-        else:
-            print("No goal positions available")
+    goalpos.x = 0.0
+    goalpos.y = -4.0
+    goalpos.z = 0.0
     origin= Point()
     origin.x = 0.0
     origin.y = 0.0
@@ -106,30 +101,30 @@ def main(args=None):
     while abs(ballpos.y)<abs(goalpos.y):
         move_node.change_motion_id(305)
         while ballpos.y>mypos.y:
-            ballpose, mypose, goal1pose, goal2pose,otpose = refresh()
-            goalpos = Point()
-            if goal1pose is not None and goal2pose is not None:
-                goalpos.x = (goal1pose.pose.position.x + goal2pose.pose.position.x) / 2
-                goalpos.y = (goal1pose.pose.position.y + goal2pose.pose.position.y) / 2
-                goalpos.z = (goal1pose.pose.position.z + goal2pose.pose.position.z) / 2
-            else:
-                # Default to one of the goals if the other is not available
-                valid_pose = goal1pose if goal1pose is not None else goal2pose
-                if valid_pose is not None:
-                    goalpos = valid_pose.pose.position
-                else:
-                    print("No goal positions available")
+            ballpose, mypose,tmpose, otpose1,otpose2 =await refresh()
             ballpos=ballpose.pose.position
             mypos = mypose.pose.position
-            otpose = otpose.pose.position
+            tmpos = tmpose.pose.position
+            otpos1 = otpose1.pose.position
+            otpos2 = otpose2.pose.position
             myangle = mypose.pose.orientation
             myangle =math.atan2(2*(myangle.z*myangle.w+myangle.x*myangle.y),1-2*(myangle.y*myangle.y+myangle.z*myangle.z))
             angle = math.pi/2
-            # print("myangle: ", myangle, "angle: ", angle)
-            # print(f"mypos:({mypos.x}, {mypos.y})")
-            # print(f"ballpos:({ballpos.x}, {ballpos.y})")
-            # print("distance: ", abs(ballpos.y-mypos.y))
-            if abs((ballpos.x-mypos.x)/(ballpos.y-mypos.y)) < 0.1 or (abs(otpos.y)<abs(mypos.y) and abs((otpos.x-mypos.x)/(otpos.y-mypos.y))<0.1):
+            if abs(ballpos.y)>abs(goalpos.y):
+                break
+            print("myangle: ", myangle, "angle: ", angle)
+            print(f"mypos:({mypos.x}, {mypos.y})")
+            print(f"ballpos:({ballpos.x}, {ballpos.y})")
+            print(f"otpos:({otpos1.x}, {otpos1.y})")
+            print("distance: ", math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y))
+            positions=[ballpos,tmpos,otpos1,otpos2]
+            not_safe = False
+            for pos in positions:
+                if abs((pos.x-mypos.x)/(pos.y-mypos.y)) < 0.1 and pos.y>mypos.y:
+                    not_safe = True
+                    # print("not safe")
+                    break
+            if not_safe:
                 move_node.change_speed(-1.0,1.0,angle-myangle)
             else:
                 move_node.change_speed(-1.0,0.0,angle-myangle)
@@ -140,30 +135,27 @@ def main(args=None):
                 rclpy.spin_once(move_node)
                 break
             rclpy.spin_once(move_node)
-        while math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y) > 0.5:
-            ballpose, mypose, goal1pose, goal2pose,otpose = refresh()
+        while math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y) > 0.4:
+            ballpose, mypose,tmpose, otpose1,otpose2 =await refresh()
             ballpos=ballpose.pose.position
             mypos = mypose.pose.position
-            otpos = otpose.pose.position
-            goalpos = Point()
-            if goal1pose is not None and goal2pose is not None:
-                goalpos.x = (goal1pose.pose.position.x + goal2pose.pose.position.x) / 2
-                goalpos.y = (goal1pose.pose.position.y + goal2pose.pose.position.y) / 2
-                goalpos.z = (goal1pose.pose.position.z + goal2pose.pose.position.z) / 2
+            tmpos = tmpose.pose.position
+            otpos1 = otpose1.pose.position
+            otpos2 = otpose2.pose.position
+            if abs(ballpos.y)>abs(goalpos.y):
+                break
+            goalkeeperpos=max(otpos1,otpos2, key=lambda pos: abs(pos.y))
+            if goalkeeperpos.x < 0:
+                goalpos.x=(goalkeeperpos.x+1.0)/2
             else:
-                # Default to one of the goals if the other is not available
-                valid_pose = goal1pose if goal1pose is not None else goal2pose
-                if valid_pose is not None:
-                    goalpos = valid_pose.pose.position
-                else:
-                    print("No goal positions available")
+                goalpos.x=(goalkeeperpos.x-1.0)/2
             myangle = mypose.pose.orientation
             myangle =math.atan2(2*(myangle.z*myangle.w+myangle.x*myangle.y),1-2*(myangle.y*myangle.y+myangle.z*myangle.z))
             angle = math.atan2(goalpos.y-ballpos.y,goalpos.x-ballpos.x)+ math.pi
             print("myangle: ", myangle, "angle: ", angle)
             print(f"mypos:({mypos.x}, {mypos.y})")
             print(f"ballpos:({ballpos.x}, {ballpos.y})")
-            print(f"otpos:({otpos.x}, {otpos.y})")
+            print(f"otpos:({otpos1.x}, {otpos1.y})")
             print("distance: ", math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y))
             vector = Point()
             vector.x = ballpos.x - mypos.x
@@ -176,14 +168,21 @@ def main(args=None):
             myvector2.y = math.sin(myangle+math.pi/2)
             # Transform vector to the coordinate system with myvector1 and myvector2 as basis
             new_vector = Point()
-            new_vector.x = vector.x * myvector1.x + vector.y * myvector1.y + 0.2
+            new_vector.x = vector.x * myvector1.x + vector.y * myvector1.y + 0.25
             new_vector.y = vector.x * myvector2.x + vector.y * myvector2.y
-            ot_vector = Point()
-            ot_vector.x = otpos.x - mypos.x
-            ot_vector.y = otpos.y - mypos.y
-            cos=(ot_vector.x * vector.x + ot_vector.y * vector.y)/(math.hypot(ot_vector.x,ot_vector.y)*math.hypot(vector.x,vector.y))
+            positions=[tmpos,otpos1,otpos2]
+            ot_vector = []
+            cos=[]
+            not_safe=False
+            for pos in positions:
+                ot_vector.append(Point())
+                ot_vector[-1].x = pos.x - mypos.x
+                ot_vector[-1].y = pos.y - mypos.y
+                cos.append((ot_vector[-1].x * vector.x + ot_vector[-1].y * vector.y)/(math.hypot(ot_vector[-1].x,ot_vector[-1].y)*math.hypot(vector.x,vector.y)))
+                if cos[0]>0.8 and math.hypot(ot_vector[-1].x,ot_vector[-1].y)<math.hypot(vector.x,vector.y):
+                    not_safe= True
             print("cos: ", cos)
-            if cos>0.8 and math.hypot(ot_vector.x,ot_vector.y)<math.hypot(vector.x,vector.y):
+            if not_safe:
                 print("otpos is in front of me")
                 move_node.change_speed(-0.5*new_vector.x,1.0,angle-myangle)
             else:
@@ -199,23 +198,20 @@ def main(args=None):
             # for i in range(2):
             rclpy.spin_once(move_node)
         move_node.change_motion_id(305)
-        while math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y) <= 0.5:
-            ballpose, mypose, goal1pose, goal2pose,otpose = refresh()
+        while math.hypot(ballpos.x-mypos.x,ballpos.y-mypos.y) <= 0.4:
+            ballpose, mypose,tmpose, otpose1,otpose2 =await refresh()
             ballpos=ballpose.pose.position
             mypos = mypose.pose.position
-            otpos = otpose.pose.position
-            goalpos = Point()
-            if goal1pose is not None and goal2pose is not None:
-                goalpos.x = (goal1pose.pose.position.x + goal2pose.pose.position.x) / 2
-                goalpos.y = (goal1pose.pose.position.y + goal2pose.pose.position.y) / 2
-                goalpos.z = (goal1pose.pose.position.z + goal2pose.pose.position.z) / 2
+            tmpos = tmpose.pose.position
+            otpos1 = otpose1.pose.position
+            otpos2 = otpose2.pose.position
+            if abs(ballpos.y)>abs(goalpos.y):
+                break
+            goalkeeperpos=max(otpos1,otpos2, key=lambda pos: abs(pos.y))
+            if goalkeeperpos.x < 0:
+                goalpos.x=(goalkeeperpos.x+1.0)/2
             else:
-                # Default to one of the goals if the other is not available
-                valid_pose = goal1pose if goal1pose is not None else goal2pose
-                if valid_pose is not None:
-                    goalpos = valid_pose.pose.position
-                else:
-                    print("No goal positions available")
+                goalpos.x=(goalkeeperpos.x-1.0)/2
             myangle = mypose.pose.orientation
             myangle =math.atan2(2*(myangle.z*myangle.w+myangle.x*myangle.y),1-2*(myangle.y*myangle.y+myangle.z*myangle.z))
             if abs(ballpos.y-goalpos.y) < 1 and goalpos.x-1 <= ballpos.x <= goalpos.x+1:
@@ -230,10 +226,14 @@ def main(args=None):
                 break
             move_node.change_speed(1.0, 0.0, angle-myangle)
             rclpy.spin_once(move_node)
-
-    location_subscriber.destroy_node()
+    move_node.change_motion_id(101)
+    rclpy.spin(move_node)
     self_location_subscriber.destroy_node()
+    opponent_location_subscriber1.destroy_node()
+    location_subscriber.destroy_node()
     move_node.destroy_node()
     rclpy.shutdown()
 if __name__ == '__main__':
-    main()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()

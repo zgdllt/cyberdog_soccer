@@ -1,3 +1,7 @@
 [console_scripts]
-stand = learning.stand:main
+ball_tracker = learning.ball_tracker:main
+barrier_move = learning.barrier_move:main
+camera = learning.camera:main
+distance = learning.distance:main
+stand = learning.stand:mainmove = learning.move:main
 

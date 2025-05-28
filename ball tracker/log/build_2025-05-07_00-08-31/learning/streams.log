@@ -1,0 +1,46 @@
+[4.216s] Invoking command in '/home/mi/workplace/src/learning': PYTHONPATH=/home/mi/workplace/install/learning/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/learning build --build-base /home/mi/workplace/build/learning/build install --prefix /home/mi/workplace/install/learning --record /home/mi/workplace/build/learning/install.log --single-version-externally-managed
+[5.785s] running egg_info
+[5.788s] writing ../../build/learning/learning.egg-info/PKG-INFO
+[5.790s] writing dependency_links to ../../build/learning/learning.egg-info/dependency_links.txt
+[5.792s] writing entry points to ../../build/learning/learning.egg-info/entry_points.txt
+[5.793s] writing requirements to ../../build/learning/learning.egg-info/requires.txt
+[5.793s] writing top-level names to ../../build/learning/learning.egg-info/top_level.txt
+[5.816s] reading manifest file '../../build/learning/learning.egg-info/SOURCES.txt'
+[5.824s] writing manifest file '../../build/learning/learning.egg-info/SOURCES.txt'
+[5.825s] running build
+[5.825s] running build_py
+[5.826s] copying learning/ball_finder.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.827s] copying learning/move.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.828s] copying learning/image_process.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.829s] copying learning/ball_tracker.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.830s] copying learning/barrier_move.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.830s] copying learning/camera.py -> /home/mi/workplace/build/learning/build/lib/learning
+[5.833s] running install
+[5.836s] /usr/local/lib/python3.6/dist-packages/setuptools/command/install.py:37: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[5.836s]   setuptools.SetuptoolsDeprecationWarning,
+[5.837s] running install_lib
+[5.843s] copying /home/mi/workplace/build/learning/build/lib/learning/ball_finder.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.844s] copying /home/mi/workplace/build/learning/build/lib/learning/move.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.845s] copying /home/mi/workplace/build/learning/build/lib/learning/image_process.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.846s] copying /home/mi/workplace/build/learning/build/lib/learning/ball_tracker.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.846s] copying /home/mi/workplace/build/learning/build/lib/learning/barrier_move.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.847s] copying /home/mi/workplace/build/learning/build/lib/learning/camera.py -> /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning
+[5.847s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/ball_finder.py to ball_finder.cpython-36.pyc
+[5.849s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/move.py to move.cpython-36.pyc
+[5.853s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/image_process.py to image_process.cpython-36.pyc
+[5.854s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/ball_tracker.py to ball_tracker.cpython-36.pyc
+[5.857s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/barrier_move.py to barrier_move.cpython-36.pyc
+[5.861s] byte-compiling /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/camera.py to camera.cpython-36.pyc
+[5.863s] running install_data
+[5.866s] copying package.xml -> /home/mi/workplace/install/learning/share/learning
+[5.868s] running install_egg_info
+[5.879s] removing '/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning-0.0.0-py3.6.egg-info' (and everything under it)
+[5.880s] Copying ../../build/learning/learning.egg-info to /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning-0.0.0-py3.6.egg-info
+[5.888s] running install_scripts
+[5.989s] Installing ball_tracker script to /home/mi/workplace/install/learning/lib/learning
+[5.990s] Installing barrier_move script to /home/mi/workplace/install/learning/lib/learning
+[5.990s] Installing camera script to /home/mi/workplace/install/learning/lib/learning
+[5.991s] Installing distance script to /home/mi/workplace/install/learning/lib/learning
+[5.991s] Installing stand = learning.stand:mainmove script to /home/mi/workplace/install/learning/lib/learning
+[5.994s] writing list of installed files to '/home/mi/workplace/build/learning/install.log'
+[6.128s] Invoked command in '/home/mi/workplace/src/learning' returned '0': PYTHONPATH=/home/mi/workplace/install/learning/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/learning build --build-base /home/mi/workplace/build/learning/build install --prefix /home/mi/workplace/install/learning --record /home/mi/workplace/build/learning/install.log --single-version-externally-managed

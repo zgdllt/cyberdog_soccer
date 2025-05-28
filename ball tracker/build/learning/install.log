@@ -1,6 +1,18 @@
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/ball_finder.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/move.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/image_process.py
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__init__.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/ball_tracker.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/barrier_move.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/camera.py
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/stand.py
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/ball_finder.cpython-36.pyc
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/move.cpython-36.pyc
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/image_process.cpython-36.pyc
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/__init__.cpython-36.pyc
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/ball_tracker.cpython-36.pyc
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/barrier_move.cpython-36.pyc
+/home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/camera.cpython-36.pyc
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning/__pycache__/stand.cpython-36.pyc
 /home/mi/workplace/install/learning/share/ament_index/resource_index/packages/learning
 /home/mi/workplace/install/learning/share/learning/package.xml
@@ -11,4 +23,8 @@
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning-0.0.0-py3.6.egg-info/entry_points.txt
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning-0.0.0-py3.6.egg-info/top_level.txt
 /home/mi/workplace/install/learning/lib/python3.6/site-packages/learning-0.0.0-py3.6.egg-info/PKG-INFO
-/home/mi/workplace/install/learning/lib/learning/stand
+/home/mi/workplace/install/learning/lib/learning/ball_tracker
+/home/mi/workplace/install/learning/lib/learning/barrier_move
+/home/mi/workplace/install/learning/lib/learning/camera
+/home/mi/workplace/install/learning/lib/learning/distance
+/home/mi/workplace/install/learning/lib/learning/stand = learning.stand:mainmove

@@ -9,6 +9,12 @@ setup.py
 ../../build/learning/learning.egg-info/top_level.txt
 ../../build/learning/learning.egg-info/zip-safe
 learning/__init__.py
+learning/ball_finder.py
+learning/ball_tracker.py
+learning/barrier_move.py
+learning/camera.py
+learning/image_process.py
+learning/move.py
 learning/stand.py
 resource/learning
 test/test_copyright.py
