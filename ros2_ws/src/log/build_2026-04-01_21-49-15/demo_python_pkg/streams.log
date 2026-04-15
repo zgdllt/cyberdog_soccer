@@ -1,0 +1,39 @@
+[4.296s] Invoking command in '/home/mi/cyberdog_soccer/ros2_ws/src/demo_python_pkg': PYTHONPATH=/home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/demo_python_pkg build --build-base /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build install --prefix /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg --record /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/install.log --single-version-externally-managed
+[6.165s] running egg_info
+[6.168s] creating ../build/demo_python_pkg/demo_python_pkg.egg-info
+[6.169s] writing ../build/demo_python_pkg/demo_python_pkg.egg-info/PKG-INFO
+[6.170s] writing dependency_links to ../build/demo_python_pkg/demo_python_pkg.egg-info/dependency_links.txt
+[6.171s] writing entry points to ../build/demo_python_pkg/demo_python_pkg.egg-info/entry_points.txt
+[6.176s] writing requirements to ../build/demo_python_pkg/demo_python_pkg.egg-info/requires.txt
+[6.176s] writing top-level names to ../build/demo_python_pkg/demo_python_pkg.egg-info/top_level.txt
+[6.188s] writing manifest file '../build/demo_python_pkg/demo_python_pkg.egg-info/SOURCES.txt'
+[6.199s] reading manifest file '../build/demo_python_pkg/demo_python_pkg.egg-info/SOURCES.txt'
+[6.206s] writing manifest file '../build/demo_python_pkg/demo_python_pkg.egg-info/SOURCES.txt'
+[6.207s] running build
+[6.207s] running build_py
+[6.208s] creating /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build
+[6.209s] creating /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib
+[6.209s] creating /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib/demo_python_pkg
+[6.210s] copying demo_python_pkg/node_helloworld.py -> /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib/demo_python_pkg
+[6.210s] copying demo_python_pkg/__init__.py -> /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib/demo_python_pkg
+[6.211s] running install
+[6.212s] /usr/local/lib/python3.6/dist-packages/setuptools/command/install.py:37: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[6.213s]   setuptools.SetuptoolsDeprecationWarning,
+[6.215s] running install_lib
+[6.219s] creating /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg
+[6.220s] copying /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib/demo_python_pkg/node_helloworld.py -> /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg
+[6.220s] copying /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build/lib/demo_python_pkg/__init__.py -> /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg
+[6.222s] byte-compiling /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg/node_helloworld.py to node_helloworld.cpython-36.pyc
+[6.224s] byte-compiling /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg/__init__.py to __init__.cpython-36.pyc
+[6.225s] running install_data
+[6.229s] creating /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/share/ament_index
+[6.229s] creating /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/share/ament_index/resource_index
+[6.230s] creating /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/share/ament_index/resource_index/packages
+[6.230s] copying resource/demo_python_pkg -> /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/share/ament_index/resource_index/packages
+[6.231s] copying package.xml -> /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/share/demo_python_pkg
+[6.231s] running install_egg_info
+[6.240s] Copying ../build/demo_python_pkg/demo_python_pkg.egg-info to /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages/demo_python_pkg-0.0.0-py3.6.egg-info
+[6.246s] running install_scripts
+[6.364s] Installing hello script to /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/demo_python_pkg
+[6.365s] writing list of installed files to '/home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/install.log'
+[6.509s] Invoked command in '/home/mi/cyberdog_soccer/ros2_ws/src/demo_python_pkg' returned '0': PYTHONPATH=/home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg/lib/python3.6/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/demo_python_pkg build --build-base /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/build install --prefix /home/mi/cyberdog_soccer/ros2_ws/src/install/demo_python_pkg --record /home/mi/cyberdog_soccer/ros2_ws/src/build/demo_python_pkg/install.log --single-version-externally-managed

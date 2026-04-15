@@ -2,7 +2,6 @@ import rclpy
 from rclpy.node import Node
 from protocol.msg import MotionServoCmd
 import time
-import math
 
 class basic_move(Node):
     def __init__(self,name):
@@ -16,10 +15,10 @@ class basic_move(Node):
         self.speed_x = speed_x
         self.speed_y = speed_y
         self.speed_z = speed_z
-        # self.get_logger().info(f"Speed changed to: {self.speed_x}, {self.speed_y}, {self.speed_z}")
+        self.get_logger().info(f"Speed changed to: {self.speed_x}, {self.speed_y}, {self.speed_z}")
     def change_motion_id(self, motion_id):
         self.motion_id = motion_id
-        # self.get_logger().info(f"Motion ID changed to: {self.motion_id}")
+        self.get_logger().info(f"Motion ID changed to: {self.motion_id}")
     def timer_callback(self):
         msg = MotionServoCmd()
         msg.motion_id = self.motion_id
@@ -28,14 +27,14 @@ class basic_move(Node):
         msg.vel_des=[self.speed_x, self.speed_y, self.speed_z]
         msg.step_height=[0.05, 0.05]
         self.pub.publish(msg)
-        # self.get_logger().info(f"Publishing: {msg}")
+        self.get_logger().info(f"Publishing: {msg}")
 def main(args=None):
     rclpy.init(args=args)
 
     basic_move_node = basic_move('basic_move')
 
     while rclpy.ok():
-        basic_move_node.change_speed(-1.0, 0.0, 0.0)
+        basic_move_node.change_speed(1.0, 0.0, 0.0)
         for i in range(10):
             rclpy.spin_once(basic_move_node)
         # basic_move_node.change_speed(0.0, -1.0, 0.0)
